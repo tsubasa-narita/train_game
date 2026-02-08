@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #3b82f6;
+  --color-primary-light: #60a5fa;
+  --color-accent: #f59e0b;
+  --color-accent-orange: #f97316;
+  --color-grass: #86efac;
+  --color-grass-dark: #4ade80;
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+  --font-family-round: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Kosugi Maru", sans-serif;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body, #root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-family-round);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
