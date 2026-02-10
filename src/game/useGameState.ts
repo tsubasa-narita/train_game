@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import type { Command, GamePhase, PlayPhase, LevelData, TrainState } from './types';
+import type { Command, GamePhase, PlayPhase, LevelData, TrainState, TrainType } from './types';
 import { executeCommands, checkSuccess } from './engine';
 import type { ExecutionStep } from './engine';
 import { levels } from './levels';
@@ -13,6 +13,7 @@ interface GameState {
   currentStepIndex: number;
   trainState: TrainState;
   clearedLevels: Set<number>;
+  trainType: TrainType;
 }
 
 type Action =
@@ -26,7 +27,8 @@ type Action =
   | { type: 'NEXT_STEP' }
   | { type: 'EXECUTION_DONE' }
   | { type: 'RETRY' }
-  | { type: 'NEXT_LEVEL' };
+  | { type: 'NEXT_LEVEL' }
+  | { type: 'SELECT_TRAIN'; trainType: TrainType };
 
 function getLevel(index: number): LevelData {
   return levels[index];
@@ -51,6 +53,7 @@ function createInitialState(): GameState {
     currentStepIndex: -1,
     trainState: initialTrainState(level),
     clearedLevels: new Set(),
+    trainType: 'kagayaki',
   };
 }
 
@@ -160,6 +163,9 @@ function reducer(state: GameState, action: Action): GameState {
       };
     }
 
+    case 'SELECT_TRAIN':
+      return { ...state, trainType: action.trainType };
+
     default:
       return state;
   }
@@ -181,6 +187,7 @@ export function useGameState() {
   const executionDone = useCallback(() => dispatch({ type: 'EXECUTION_DONE' }), []);
   const retry = useCallback(() => dispatch({ type: 'RETRY' }), []);
   const nextLevel = useCallback(() => dispatch({ type: 'NEXT_LEVEL' }), []);
+  const selectTrain = useCallback((t: TrainType) => dispatch({ type: 'SELECT_TRAIN', trainType: t }), []);
 
   return {
     ...state,
@@ -197,5 +204,6 @@ export function useGameState() {
     executionDone,
     retry,
     nextLevel,
+    selectTrain,
   };
 }
