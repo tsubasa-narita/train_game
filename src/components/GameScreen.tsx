@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import GameGrid from './GameGrid';
 import CommandPanel from './CommandPanel';
-import { CELL_INFO, type LevelData, type TrainState, type Command, type PlayPhase } from '../game/types';
+import { CELL_INFO, type LevelData, type TrainState, type Command, type PlayPhase, type TrainType } from '../game/types';
 import type { ExecutionStep } from '../game/engine';
 
 interface GameScreenProps {
@@ -11,6 +11,7 @@ interface GameScreenProps {
   playPhase: PlayPhase;
   executionSteps: ExecutionStep[];
   currentStepIndex: number;
+  trainType: TrainType;
   onAddCommand: (cmd: Command) => void;
   onRemoveCommand: (index: number) => void;
   onClear: () => void;
@@ -27,6 +28,7 @@ export default function GameScreen({
   playPhase,
   executionSteps,
   currentStepIndex,
+  trainType,
   onAddCommand,
   onRemoveCommand,
   onClear,
@@ -94,6 +96,7 @@ export default function GameScreen({
           trainState={trainState}
           goalPosition={level.goal}
           isExecuting={isExecuting}
+          trainType={trainType}
         />
       </div>
 

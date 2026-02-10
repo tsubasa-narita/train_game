@@ -18,7 +18,9 @@ function App() {
       {game.phase === 'levelSelect' && (
         <LevelSelectScreen
           clearedLevels={game.clearedLevels}
+          trainType={game.trainType}
           onSelectLevel={game.startLevel}
+          onSelectTrain={game.selectTrain}
           onBack={game.goTitle}
         />
       )}
@@ -31,6 +33,7 @@ function App() {
           playPhase={game.playPhase}
           executionSteps={game.executionSteps}
           currentStepIndex={game.currentStepIndex}
+          trainType={game.trainType}
           onAddCommand={game.addCommand}
           onRemoveCommand={game.removeCommand}
           onClear={game.clearCommands}

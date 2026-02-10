@@ -38,11 +38,13 @@ export function isInBounds(pos: Position, gridSize: number): boolean {
 }
 
 export function directionToAngle(dir: Direction): number {
+  // SVG train is drawn facing LEFT (west), rotate clockwise:
+  // west=0, north=90, east=180, south=270
   const map: Record<Direction, number> = {
-    north: 0,
-    east: 90,
-    south: 180,
-    west: 270,
+    west: 0,
+    north: 90,
+    east: 180,
+    south: 270,
   };
   return map[dir];
 }
